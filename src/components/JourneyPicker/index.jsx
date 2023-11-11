@@ -8,10 +8,13 @@ export const JourneyPicker = ({ onJourneyChange }) => {
   const [cities, setCities] = useState([]);
   const [dates, setDates] = useState([]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Odesílám formulář s cestou');
-    console.log(`Odkud: ${fromCity}, Kam: ${toCity}, Datum: ${date}`);
+    const response = await fetch(
+      `https://apps.kodim.cz/daweb/leviexpress/api/journey?fromCity=${fromCity}&toCity=${toCity}&date=${date}`,
+    );
+    const data = await response.json();
+    onJourneyChange(data.results);
   };
 
   useEffect(() => {
@@ -60,7 +63,11 @@ export const JourneyPicker = ({ onJourneyChange }) => {
             </select>
           </label>
           <div className="journey-picker__controls">
-            <button className="btn" type="submit">
+            <button
+              className="btn"
+              type="submit"
+              disabled={fromCity && toCity && date !== '' ? false : true}
+            >
               Vyhledat spoj
             </button>
           </div>
@@ -76,7 +83,7 @@ const CityOptions = ({ cities }) => {
     <>
       <option value="">Vyberte</option>
       {cities.map((city) => (
-        <option key={city.code} value={city.name}>
+        <option key={city.code} value={city.code}>
           {city.name}
         </option>
       ))}
