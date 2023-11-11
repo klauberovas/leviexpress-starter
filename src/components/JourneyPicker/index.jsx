@@ -92,7 +92,6 @@ const CityOptions = ({ cities }) => {
 };
 
 const DateOptions = ({ dates }) => {
-  console.log(dates);
   return (
     <>
       <option value="">Vyberte</option>
