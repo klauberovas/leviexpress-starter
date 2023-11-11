@@ -1,6 +1,6 @@
 import { Seat } from '../Seat';
 
-export const SeatRow = ({ row }) => {
+export const SeatRow = ({ row, rowSelectedSeat, onSeatSelected }) => {
   return (
     <div className="seat-row">
       {row.map((row) => (
@@ -8,6 +8,8 @@ export const SeatRow = ({ row }) => {
           key={row.number}
           number={row.number}
           isOccupied={row.isOccupied}
+          isSelected={row.number === rowSelectedSeat ? true : false}
+          onSelect={onSeatSelected}
         />
       ))}
     </div>

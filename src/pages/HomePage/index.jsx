@@ -7,10 +7,13 @@ import { SeatPicker } from '../../components/SeatPicker';
 
 export const HomePage = () => {
   const [journey, setJourney] = useState(null);
+  const [userState, setUserState] = useState(null);
+
   const navigate = useNavigate();
 
   const handleJourneyChange = (journey) => {
     setJourney(journey);
+    setUserState(journey.autoSeat);
   };
 
   const handleBuy = async () => {
@@ -23,7 +26,7 @@ export const HomePage = () => {
         },
         body: JSON.stringify({
           action: 'create',
-          seat: journey.autoSeat,
+          seat: userState,
           journeyId: journey.journeyId,
         }),
       },
@@ -39,7 +42,12 @@ export const HomePage = () => {
       {journey === null ? null : (
         <>
           <JourneyDetail journey={journey.stops} />
-          <SeatPicker seats={journey.seats} journeyId={journey.journeyId} />
+          <SeatPicker
+            seats={journey.seats}
+            journeyId={journey.journeyId}
+            selectedSeat={userState}
+            onSeatSelected={setUserState}
+          />
           <div className="controls container">
             <button onClick={handleBuy} className="btn btn--big" type="button">
               Rezervovat

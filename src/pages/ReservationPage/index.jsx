@@ -21,7 +21,7 @@ export const ReservationPage = () => {
 
   return reservation !== null ? (
     <div className="reservation container">
-      <h2>Vaše e-jízdenka č. {reservation.reservationId}</h2>
+      <h2>Vaše e-jízdenka č. {reservation.reservationId.toUpperCase()}</h2>
       <div className="reservation__body">
         <div className="reservation__headings">
           <p>Datum cesty:</p>

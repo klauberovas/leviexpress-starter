@@ -1,9 +1,16 @@
 import './style.css';
 
-export const Seat = ({ number, isOccupied }) => {
+export const Seat = ({ number, isOccupied, isSelected, onSelect }) => {
   return (
     <svg
-      className={isOccupied ? 'seat seat--occupied' : 'seat'}
+      onClick={() => onSelect(number)}
+      className={
+        isOccupied
+          ? 'seat seat--occupied'
+          : isSelected
+          ? 'seat seat--selected'
+          : 'seat'
+      }
       viewBox="0 0 100 100"
       role="button"
     >
